@@ -1,11 +1,11 @@
 // import {blank,blueCandy,greenCandy,orangeCandy,purpleCandy,redCandy,yellowCandy} from '../featurs/images'
-import blank from './images/blank.png'
-import blueCandy from './images/Bluecandy.png'
-import greenCandy from './images/Greencandy.png'
-import orangeCandy from './images/Orangecandy.png'
-import purpleCandy from './images/Purplecandy.png'
-import redCandy from './images/Redcandy.png'
-import yellowCandy from './images/YellowCandy.png'
+import blank from '/images/blank.png'
+import blueCandy from '/images/Bluecandy.png'
+import greenCandy from '/images/Greencandy.png'
+import orangeCandy from '/images/Orangecandy.png'
+import purpleCandy from '/images/Purplecandy.png'
+import redCandy from '/images/Redcandy.png'
+import yellowCandy from '/images/YellowCandy.png'
 
 const width = 8
 const candyColors = [

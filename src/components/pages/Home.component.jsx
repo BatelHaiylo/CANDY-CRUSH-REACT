@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import './Home.css'
-import {checkForColumnOfFour,checkForRowOfFour,checkForColumnOfThree,checkForRowOfThree,moveIntoSquareBelow,dragStart,dragDrop,dragEnd,createBoard} from './Home'
+import {width,checkForColumnOfFour,checkForRowOfFour,checkForColumnOfThree,checkForRowOfThree,moveIntoSquareBelow,createBoard} from './Home'
 
 export default function Home() {
   const[ currentColorArrangement, setCurrentColorArrangement] = useState([])
   const[ squareBeingDragged, setsquareBeingDragged] = useState(null)
+  const[ squareBeingReplaced, setsquareBeingReplaced] = useState(null)
 
   useEffect(()=>{
     const timerId = setInterval(()=>{
@@ -20,6 +21,53 @@ export default function Home() {
   },[checkForColumnOfFour,checkForRowOfFour,checkForColumnOfThree,checkForRowOfThree,moveIntoSquareBelow,currentColorArrangement])
 
   useEffect(()=>{setCurrentColorArrangement(createBoard())},[])
+
+  const dragStart = (e) => {
+    console.log(e.target)
+    console.log('drag start')
+    setsquareBeingDragged(e.target)
+}
+const dragDrop = (e) => {
+    console.log(e.target)
+    console.log('drag drop')
+    setsquareBeingReplaced(e.target)
+}
+const dragEnd = (e) => {
+    console.log('drag end')
+
+    const squareBeingDraggedId =  parseInt(squareBeingDragged.getAttribute('data-id'))
+    const squareBeingReplacedId =  parseInt(squareBeingReplaced.getAttribute('data-id'))
+
+    currentColorArrangement[squareBeingReplacedId] = squareBeingDragged.style.backgroundColor
+    currentColorArrangement[squareBeingDraggedId] = squareBeingReplaced.style.backgroundColor
+
+    console.log("squareBeingDraggedId", squareBeingDraggedId)
+    console.log("squareBeingReplacedId", squareBeingReplacedId)
+
+    const validMoves = [
+        squareBeingDraggedId - 1,
+        squareBeingDraggedId - width,
+        squareBeingDraggedId + 1,
+        squareBeingDraggedId + width
+    ]
+
+    const validMove = validMoves.includes(squareBeingReplacedId)
+
+    const isAColumnOfFour = checkForColumnOfFour(currentColorArrangement)
+    const isARowOfFour = checkForRowOfFour(currentColorArrangement)
+    const isAColumnOfThree = checkForColumnOfThree(currentColorArrangement)
+    const isARowOfThree = checkForRowOfThree(currentColorArrangement)
+
+    if(squareBeingReplacedId && validMove &&
+        ( isAColumnOfFour || isAColumnOfThree || isARowOfFour || isARowOfThree)){
+            setsquareBeingDragged(null)
+            setsquareBeingReplaced(null)
+        } else {
+            currentColorArrangement[squareBeingReplacedId] = squareBeingReplaced.style.backgroundColor
+            currentColorArrangement[squareBeingDraggedId] = squareBeingDragged.style.backgroundColor
+            setCurrentColorArrangement([...currentColorArrangement])
+        }
+}
 
   return (
     <div className="home">

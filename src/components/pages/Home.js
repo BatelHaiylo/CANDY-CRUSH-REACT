@@ -29,6 +29,7 @@ const checkForRowOfFour = (colorArray) => {
 
         if( rowOfFour.every( square => colorArray[square] === decidedColor)){
             rowOfFour.forEach(square => colorArray[square] = '')
+            return true
         }
     }
 }
@@ -41,6 +42,7 @@ const checkForColumnOfThree = (colorArray) => {
 
         if( columnOfThree.every( square => colorArray[square] === decidedColor)){
             columnOfThree.forEach(square => colorArray[square] = '')
+            return true
         }
     }
 }
@@ -54,6 +56,7 @@ const checkForRowOfThree = (colorArray) => {
 
         if( rowOfThree.every( square => colorArray[square] === decidedColor)){
             rowOfThree.forEach(square => colorArray[square] = '')
+            return true
         }
     }
 }
@@ -75,18 +78,6 @@ const moveIntoSquareBelow = (colorArray) => {
     }
 }
 
-const dragStart = (e) => {
-    console.log(e.target)
-    console.log('drag start')
-}
-const dragDrop = (e) => {
-    console.log(e.target)
-    console.log('drag drop')
-}
-const dragEnd = (e) => {
-    console.log(e.target)
-    console.log('drag end')
-}
 
   const createBoard = () => {
     const randomColorArrangement = []
@@ -98,13 +89,11 @@ const dragEnd = (e) => {
   }
 
   export{
+    width,
     checkForColumnOfFour,
     checkForRowOfFour,
     checkForColumnOfThree,
     checkForRowOfThree,
     moveIntoSquareBelow,
-    dragStart,
-    dragDrop,
-    dragEnd,
     createBoard
   }

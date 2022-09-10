@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import './Home.css'
 import {width,checkForColumnOfFour,checkForRowOfFour,checkForColumnOfThree,checkForRowOfThree,moveIntoSquareBelow,createBoard} from './Home'
-
+import ScoreBoard from "../featurs/score board/ScoreBoard.component"
+import {ScoreContext} from '../context/ScoreProvider.component'
 export default function Home() {
   const[ currentColorArrangement, setCurrentColorArrangement] = useState([])
   const[ squareBeingDragged, setsquareBeingDragged] = useState(null)
   const[ squareBeingReplaced, setsquareBeingReplaced] = useState(null)
+  const{score,setScore}= useContext(ScoreContext)
 
   useEffect(()=>{
     const timerId = setInterval(()=>{
@@ -16,25 +18,19 @@ export default function Home() {
         moveIntoSquareBelow(currentColorArrangement)
 
         setCurrentColorArrangement([...currentColorArrangement])
-    },1000)
+    },100)
     return ()=>clearInterval(timerId)
   },[checkForColumnOfFour,checkForRowOfFour,checkForColumnOfThree,checkForRowOfThree,moveIntoSquareBelow,currentColorArrangement])
 
   useEffect(()=>{setCurrentColorArrangement(createBoard())},[])
 
   const dragStart = (e) => {
-    console.log(e.target)
-    console.log('drag start')
     setsquareBeingDragged(e.target)
 }
 const dragDrop = (e) => {
-    console.log(e.target)
-    console.log('drag drop')
     setsquareBeingReplaced(e.target)
 }
-const dragEnd = (e) => {
-    console.log('drag end')
-
+const dragEnd = () => {
     const squareBeingDraggedId =  parseInt(squareBeingDragged.getAttribute('data-id'))
     const squareBeingReplacedId =  parseInt(squareBeingReplaced.getAttribute('data-id'))
 
@@ -71,6 +67,7 @@ const dragEnd = (e) => {
 
   return (
     <div className="home">
+        {/* <ScoreBoard state={currentColorArrangement}/> */}
     <div className="game">
     {currentColorArrangement.map((candyColor,index) => (
       <img 

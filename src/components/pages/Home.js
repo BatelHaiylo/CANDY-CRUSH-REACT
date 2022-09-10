@@ -23,6 +23,7 @@ const checkForColumnOfFour = (colorArray) => {
         const decidedColor =  colorArray[i]
 
         if( columnOfFour.every( square => colorArray[square] === decidedColor)){
+            // setScore((score)=>score+4)
             columnOfFour.forEach(square => colorArray[square] = blank)
         }
     }
@@ -36,6 +37,7 @@ const checkForRowOfFour = (colorArray) => {
         if(notValid.includes(i)) continue
 
         if( rowOfFour.every( square => colorArray[square] === decidedColor)){
+            // setScore((score)=>score+4)
             rowOfFour.forEach(square => colorArray[square] = blank)
             return true
         }
@@ -47,6 +49,7 @@ const checkForColumnOfThree = (colorArray) => {
         const decidedColor =  colorArray[i]
 
         if( columnOfThree.every( square => colorArray[square] === decidedColor)){
+            // setScore((score)=>score+3)
             columnOfThree.forEach(square => colorArray[square] = blank)
             return true
         }
@@ -61,6 +64,7 @@ const checkForRowOfThree = (colorArray) => {
         if(notValid.includes(i)) continue
 
         if( rowOfThree.every( square => colorArray[square] === decidedColor)){
+            // setScore((score)=>score+3)
             rowOfThree.forEach(square => colorArray[square] = blank)
             return true
         }

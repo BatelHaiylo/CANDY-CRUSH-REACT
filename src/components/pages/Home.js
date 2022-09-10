@@ -1,11 +1,20 @@
+// import {blank,blueCandy,greenCandy,orangeCandy,purpleCandy,redCandy,yellowCandy} from '../featurs/images'
+import blank from './images/blank.png'
+import blueCandy from './images/Bluecandy.png'
+import greenCandy from './images/Greencandy.png'
+import orangeCandy from './images/Orangecandy.png'
+import purpleCandy from './images/Purplecandy.png'
+import redCandy from './images/Redcandy.png'
+import yellowCandy from './images/YellowCandy.png'
+
 const width = 8
 const candyColors = [
-  'blue',
-  'green',
-  'orange',
-  'purple',
-  'red',
-  'yellow'
+  blueCandy,
+  greenCandy,
+  orangeCandy,
+  purpleCandy,
+  redCandy,
+  yellowCandy
 ]
 
 const checkForColumnOfFour = (colorArray) => {
@@ -14,11 +23,10 @@ const checkForColumnOfFour = (colorArray) => {
         const decidedColor =  colorArray[i]
 
         if( columnOfFour.every( square => colorArray[square] === decidedColor)){
-            columnOfFour.forEach(square => colorArray[square] = '')
+            columnOfFour.forEach(square => colorArray[square] = blank)
         }
     }
 }
-
 const checkForRowOfFour = (colorArray) => {
     for(let i=0; i<=64; i++){
         const rowOfFour = [i,i+1,i+2,i+3]
@@ -28,20 +36,18 @@ const checkForRowOfFour = (colorArray) => {
         if(notValid.includes(i)) continue
 
         if( rowOfFour.every( square => colorArray[square] === decidedColor)){
-            rowOfFour.forEach(square => colorArray[square] = '')
+            rowOfFour.forEach(square => colorArray[square] = blank)
             return true
         }
     }
 }
-
-
 const checkForColumnOfThree = (colorArray) => {
     for(let i=0; i<=47; i++){
         const columnOfThree = [i,i+width,i+width*2]
         const decidedColor =  colorArray[i]
 
         if( columnOfThree.every( square => colorArray[square] === decidedColor)){
-            columnOfThree.forEach(square => colorArray[square] = '')
+            columnOfThree.forEach(square => colorArray[square] = blank)
             return true
         }
     }
@@ -55,7 +61,7 @@ const checkForRowOfThree = (colorArray) => {
         if(notValid.includes(i)) continue
 
         if( rowOfThree.every( square => colorArray[square] === decidedColor)){
-            rowOfThree.forEach(square => colorArray[square] = '')
+            rowOfThree.forEach(square => colorArray[square] = blank)
             return true
         }
     }
@@ -66,14 +72,14 @@ const moveIntoSquareBelow = (colorArray) => {
         const firstRow = [0,1,2,3,4,5,6,7]
         const isFirstRow = firstRow.includes(i)
 
-        if(isFirstRow && colorArray[i] === ''){
+        if(isFirstRow && colorArray[i] === blank){
             let rndNum = Math.floor(Math.random()*candyColors.length)
             colorArray[i] = candyColors[rndNum]
         }
 
-        if(colorArray[i + width] === ''){
+        if(colorArray[i + width] === blank){
             colorArray[i+width] = colorArray[i]
-            colorArray[i] = ''
+            colorArray[i] = blank
         }
     }
 }

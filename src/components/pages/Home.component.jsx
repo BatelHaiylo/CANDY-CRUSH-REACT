@@ -38,8 +38,8 @@ const dragEnd = (e) => {
     const squareBeingDraggedId =  parseInt(squareBeingDragged.getAttribute('data-id'))
     const squareBeingReplacedId =  parseInt(squareBeingReplaced.getAttribute('data-id'))
 
-    currentColorArrangement[squareBeingReplacedId] = squareBeingDragged.style.backgroundColor
-    currentColorArrangement[squareBeingDraggedId] = squareBeingReplaced.style.backgroundColor
+    currentColorArrangement[squareBeingReplacedId] = squareBeingDragged.getAttribute('src')
+    currentColorArrangement[squareBeingDraggedId] = squareBeingReplaced.getAttribute('src')
 
     console.log("squareBeingDraggedId", squareBeingDraggedId)
     console.log("squareBeingReplacedId", squareBeingReplacedId)
@@ -63,8 +63,8 @@ const dragEnd = (e) => {
             setsquareBeingDragged(null)
             setsquareBeingReplaced(null)
         } else {
-            currentColorArrangement[squareBeingReplacedId] = squareBeingReplaced.style.backgroundColor
-            currentColorArrangement[squareBeingDraggedId] = squareBeingDragged.style.backgroundColor
+            currentColorArrangement[squareBeingReplacedId] = squareBeingReplaced.getAttribute('src')
+            currentColorArrangement[squareBeingDraggedId] = squareBeingDragged.getAttribute('src')
             setCurrentColorArrangement([...currentColorArrangement])
         }
 }
@@ -75,7 +75,7 @@ const dragEnd = (e) => {
     {currentColorArrangement.map((candyColor,index) => (
       <img 
       key={index}
-      style={{backgroundColor: candyColor}}
+      src={candyColor}
       alt={candyColor}
       data-id={index}
       draggable={true}

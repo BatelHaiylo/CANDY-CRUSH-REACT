@@ -39,7 +39,9 @@ const checkForRowOfFour = (colorArray) => {
         if( rowOfFour.every( square => colorArray[square] === decidedColor)){
             // setScore((score)=>score+4)
             rowOfFour.forEach(square => colorArray[square] = blank)
+            console.log(true)
             return true
+            
         }
     }
 }

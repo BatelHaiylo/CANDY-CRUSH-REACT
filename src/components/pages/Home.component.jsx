@@ -7,18 +7,20 @@ export default function Home() {
   const[ currentColorArrangement, setCurrentColorArrangement] = useState([])
   const[ squareBeingDragged, setsquareBeingDragged] = useState(null)
   const[ squareBeingReplaced, setsquareBeingReplaced] = useState(null)
-  const{score,setScore}= useContext(ScoreContext)
+  const {score,setScore}= useContext(ScoreContext)
 
   useEffect(()=>{
     const timerId = setInterval(()=>{
-        checkForColumnOfFour(currentColorArrangement)
-        checkForRowOfFour(currentColorArrangement)
-        checkForColumnOfThree(currentColorArrangement)
-        checkForRowOfThree(currentColorArrangement)
+        if (checkForColumnOfFour(currentColorArrangement)||checkForRowOfFour(currentColorArrangement)){
+            setScore(+score+4)
+        }
+        if(checkForColumnOfThree(currentColorArrangement)||checkForRowOfThree(currentColorArrangement)){
+            setScore(+score+3)
+        }
         moveIntoSquareBelow(currentColorArrangement)
 
         setCurrentColorArrangement([...currentColorArrangement])
-    },100)
+    },1000)
     return ()=>clearInterval(timerId)
   },[checkForColumnOfFour,checkForRowOfFour,checkForColumnOfThree,checkForRowOfThree,moveIntoSquareBelow,currentColorArrangement])
 
@@ -67,9 +69,9 @@ const dragEnd = () => {
 
   return (
     <div className="home">
-        {/* <ScoreBoard state={currentColorArrangement}/> */}
+        <ScoreBoard score={score}/>
     <div className="game">
-    {currentColorArrangement.map((candyColor,index) => (
+    {currentColorArrangement?.map((candyColor,index) => (
       <img 
       key={index}
       src={candyColor}
